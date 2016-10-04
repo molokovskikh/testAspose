@@ -10,11 +10,11 @@ namespace CommonFormat
     /// </summary>
     public interface IFormat
     {
+       
         /// <summary>
-        /// Convert to any specified format
+        /// Tag implementing format by wildcard "[BuissnessDescription].[fileFormatShortName]"
+        /// Expamle: "SOMEFORMAT.XML", "SOMEFORMAT.BIN"
         /// </summary>
-        /// <typeparam name="T">Type of target format</typeparam>
-        /// <returns></returns>
-        IFormat convert<T>() where T : IFormat;
+        string Tag { get; }
     }
 }
