@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace SomeFormat.Implementations
 {
-    public abstract class AbstractSomeFormatActions: ISomeFormatActions
+    public abstract class AbstractSomeFormat: ISomeFormat
     {
         #region Private code
        
-        private List<ISomeFormat> _records;
+        private List<ISomeFormatRecord> _records;
 
         private void _InitRecords()
         {
-            this._records = this._records ?? new List<ISomeFormat>();
+            this._records = this._records ?? new List<ISomeFormatRecord>();
         }
 
         private bool _IsEmptyRecords()
@@ -23,11 +23,17 @@ namespace SomeFormat.Implementations
             return this._records == null;
         }
 
+        /// <summary>
+        /// Get Tag Format
+        /// </summary>
+        /// <returns></returns>
+        protected abstract string GetTag();
+
         #endregion
 
 
 
-        #region ISomeFormatActions Implementation
+        #region ISomeFormat Implementation
 
         public long Count()
         {
@@ -47,7 +53,7 @@ namespace SomeFormat.Implementations
             this._records = ReadFrom(filename);            
         }
 
-        public long Add(ISomeFormat record)
+        public long Add(ISomeFormatRecord record)
         {
             _InitRecords();
 
@@ -56,7 +62,7 @@ namespace SomeFormat.Implementations
             return Count() - 1;
         }
 
-        public void Modify(ISomeFormat record, int positionRecord)
+        public void Modify(ISomeFormatRecord record, int positionRecord)
         {
             if (!_IsEmptyRecords() && positionRecord < Count())
             {
@@ -64,7 +70,7 @@ namespace SomeFormat.Implementations
             }
         }
 
-        public ISomeFormat Get(int positionRecord)
+        public ISomeFormatRecord Get(int positionRecord)
         {
             return !_IsEmptyRecords() && positionRecord < Count()
                 ? this._records[positionRecord]
@@ -78,13 +84,11 @@ namespace SomeFormat.Implementations
 
         #region For inheritors
 
-        protected abstract void WriteTo(string filename,List<ISomeFormat> records);
-        protected abstract List<ISomeFormat> ReadFrom(string filename);
+        protected abstract void WriteTo(string filename,List<ISomeFormatRecord> records);
+        protected abstract List<ISomeFormatRecord> ReadFrom(string filename);
 
-        #endregion
-
-
-        public R Convert<R>() where R : IFormatActions<ISomeFormat>
+        
+        public R Convert<R>() where R : IFormat<ISomeFormatRecord>
         {
             //TODO Release function conversion XML <> Binary
             //return default(R);
@@ -92,5 +96,18 @@ namespace SomeFormat.Implementations
             throw new IncompatibleFormatException();
             
         }
+
+        public string Tag 
+        { 
+            get 
+            {
+                return GetTag();
+            }
+        }
+
+        #endregion
+
+       
+        
     }
 }

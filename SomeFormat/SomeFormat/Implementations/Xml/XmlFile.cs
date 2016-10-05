@@ -6,11 +6,11 @@ using System.Xml.Serialization;
 
 namespace SomeFormat.Implementations.Xml
 {
-    public class XmlFile: AbstractSomeFormatActions
+    public class XmlFile: AbstractSomeFormat
     {
         private readonly XmlSerializer _xmlSerializer = new XmlSerializer(typeof(SomeFormatXml));
      
-        protected override void WriteTo(string filename, List<ISomeFormat> records)
+        protected override void WriteTo(string filename, List<ISomeFormatRecord> records)
         {
             using (XmlWriter xmlWriter = XmlWriter.Create(filename))
             {
@@ -18,9 +18,9 @@ namespace SomeFormat.Implementations.Xml
             }
         }
 
-        protected override List<ISomeFormat> ReadFrom(string filename)
+        protected override List<ISomeFormatRecord> ReadFrom(string filename)
         {
-            List<ISomeFormat> result = null;
+            List<ISomeFormatRecord> result = null;
 
             using (XmlReader xmlReader = XmlReader.Create(filename))
             {
@@ -40,5 +40,12 @@ namespace SomeFormat.Implementations.Xml
 
             return result;
         }
+
+
+        protected override string GetTag()
+        {
+            return "SOMEFORMAT.XML";
+        }
+
     }
 }

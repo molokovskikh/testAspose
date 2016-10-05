@@ -10,7 +10,7 @@ namespace SomeFormat
     /// <summary>
     /// Actions on file of specific format
     /// </summary>
-    public interface ISomeFormatActions: IFormatActions<ISomeFormat>
+    public interface ISomeFormat: IFormat<ISomeFormatRecord>
     {
     }
 }

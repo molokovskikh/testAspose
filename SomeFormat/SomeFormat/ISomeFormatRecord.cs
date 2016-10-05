@@ -4,23 +4,24 @@ using System.Linq;
 using System.Text;
 using CommonFormat;
 using System.Collections;
+using System.Runtime.Serialization;
 
 namespace SomeFormat
 {
     /// <summary>
     /// Specific file format
-    /// </summary>
-    public interface ISomeFormat : IFormat, IEnumerable<ISomeFormat>
+    /// </summary>    
+    public interface ISomeFormatRecord: IFormatRecord
     {
         /// <summary>
         /// Field "Date"
         /// </summary>
-        String Date { get; set; }
+        string Date { get; set; }
 
         /// <summary>
         /// Field "BrandName"
         /// </summary>
-        String BrandName { get; set; }
+        string BrandName { get; set; }
 
         /// <summary>
         /// Field "Price"

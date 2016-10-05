@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace SomeFormat.Implementations.Xml
 {
     [Serializable]
-    public class SomeFormatXmlItem : ISomeFormat
+    public class SomeFormatRecordXml : ISomeFormatRecord
     {
         public string Date
         {
@@ -24,10 +24,6 @@ namespace SomeFormat.Implementations.Xml
             get;
             set;
         }
-        
-        public string Tag
-        {
-            get { return "SOMEFORMAT.XML"; }
-        }
+                
     }
 }
