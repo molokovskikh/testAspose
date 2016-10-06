@@ -39,9 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BinaryFile.cs" />
+    <Compile Include="Implementations\AbstractSomeFormatActions.cs" />
+    <Compile Include="Implementations\Binary\BinaryFile.cs" />
+    <Compile Include="Implementations\Binary\SomeFormatBinary.cs" />
+    <Compile Include="Implementations\Xml\SomeFormatXml.cs" />
+    <Compile Include="Implementations\Xml\XmlFile.cs" />
+    <Compile Include="ISomeFormatRecord.cs" />
+    <Compile Include="ISomeFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XmlFile.cs" />
+    <Compile Include="Implementations\Xml\SomeFormatRecordXml.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonFormat\CommonFormat.csproj">
@@ -49,6 +55,7 @@
       <Name>CommonFormat</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

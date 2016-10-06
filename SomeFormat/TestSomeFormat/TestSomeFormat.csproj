@@ -53,11 +53,23 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BinaryFileTest.cs" />
+    <Compile Include="ConvertFilesTest.cs" />
     <Compile Include="XmlFileTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonFormat\CommonFormat.csproj">
+      <Project>{a764ecdc-eb7e-48a9-91b5-cc131f2c84f0}</Project>
+      <Name>CommonFormat</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SomeFormat\SomeFormat.csproj">
+      <Project>{8797899c-0d52-4f8c-9e2f-62f1299e9e0b}</Project>
+      <Name>SomeFormat</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

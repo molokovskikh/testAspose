@@ -39,9 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\CorruptedFormatException.cs" />
+    <Compile Include="Exceptions\IncompatibleFormatException.cs" />
+    <Compile Include="IFormatRecord.cs" />
     <Compile Include="IFormat.cs" />
-    <Compile Include="ISomeFormat.cs" />
-    <Compile Include="ISomeFormatActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
