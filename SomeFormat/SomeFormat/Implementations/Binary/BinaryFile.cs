@@ -14,12 +14,8 @@ namespace SomeFormat.Implementations.Binary
         /// </summary>
         static readonly  byte [] HEADER = { 0x25, 0x26 };
 
-        protected override void WriteTo(string filename, List<ISomeFormatRecord> records)
-        {
-          
-        }
 
-        class SomeFormatRecord: ISomeFormatRecord
+        class SomeFormatRecord : ISomeFormatRecord
         {
             public string Date
             {
@@ -37,8 +33,49 @@ namespace SomeFormat.Implementations.Binary
             {
                 get;
                 set;
-            }                
+            }
         }
+
+
+        byte [] _PackNumber(long number, int lenInBytes, bool reverse = false)
+        {
+            byte [] res = new byte[lenInBytes];
+
+            if (!reverse)
+            {
+                res[0] = 0;
+                for (int i = 0; i < lenInBytes; i++)
+                {
+
+                }
+            }
+
+            return res;
+        }
+
+
+        long _UnpackNumber(byte [] bytes_number, bool reverse = false)
+        {
+            long res = 0;
+            return res;
+        }
+
+
+        protected override void WriteTo(string filename, List<ISomeFormatRecord> records)
+        {
+            using (BinaryWriter b = new BinaryWriter(File.OpenWrite(filename)))
+            {
+                //Write header
+                b.Write(HEADER);
+                
+
+                records.Count
+                b.Write()
+
+            }
+        }
+
+      
 
         protected override List<ISomeFormatRecord> ReadFrom(string filename)
         {

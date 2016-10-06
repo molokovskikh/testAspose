@@ -9,7 +9,24 @@ namespace SomeFormat.Implementations.Xml
 {
     [Serializable, XmlRoot("Document")]
     public class SomeFormatXml
-    {               
+    {
+
+        public SomeFormatXml() { }
+        
+        public SomeFormatXml(List<ISomeFormatRecord> records) 
+        {
+            Items =
+            records
+                .Select<ISomeFormatRecord,SomeFormatRecordXml>((r,i) => 
+                new SomeFormatRecordXml() 
+                { 
+                    Date = r.Date,
+                    BrandName = r.BrandName,
+                    Price = r.Price
+                })
+                .ToList<SomeFormatRecordXml>();
+        }
+
         [XmlElement("Car")]
         public List<SomeFormatRecordXml> Items { get; set; }
 

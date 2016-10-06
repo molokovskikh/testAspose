@@ -56,7 +56,7 @@ namespace SomeFormat
 
 
          /// <summary>
-         /// Tag implementing format by wildcard "[BuissnessDescription].[fileFormatShortName]"
+         /// Tag implementing format by wildcard "[BusinessDescription].[fileFormatShortName]"
          /// Expamle: "SOMEFORMAT.XML", "SOMEFORMAT.BIN"
          /// </summary>
          string Tag { get; }

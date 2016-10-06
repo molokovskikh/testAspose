@@ -12,6 +12,30 @@ using NUnit.Framework;
 
 namespace TestSomeFormat
 {
+
+    class SomeFormatRecordStub : ISomeFormatRecord
+    {
+        public string Date
+        {
+            get;
+            set;
+        }
+
+        public string BrandName
+        {
+            get;
+            set;
+        }
+
+        public int Price
+        {
+            get;
+            set;
+        }
+    }
+
+
+
     [TestFixture]
     public class BinaryFileTest
     {
@@ -57,35 +81,35 @@ namespace TestSomeFormat
                 // End first record
             });
 
-            ISomeFormat someFormatActions = new BinaryFile();
-            someFormatActions.Read(testFilename);
+            ISomeFormat someFormat = new BinaryFile();
+            someFormat.Read(testFilename);
 
-            Assert.AreEqual(1,someFormatActions.Count());
+            Assert.AreEqual(1,someFormat.Count());
 
-            ISomeFormatRecord someFormat = someFormatActions.Get(0);
+            ISomeFormatRecord someFormatRecord = someFormat.Get(0);
 
-            Assert.AreEqual("10.10.2008", someFormat.Date);
-            Assert.AreEqual("Alpha Romeo Brera", someFormat.BrandName);            
-            Assert.AreEqual(37000, someFormat.Price);            
+            Assert.AreEqual("10.10.2008", someFormatRecord.Date);
+            Assert.AreEqual("Alpha Romeo Brera", someFormatRecord.BrandName);            
+            Assert.AreEqual(37000, someFormatRecord.Price);            
         }
 
 
         [Test]
-        public void XmlFileReadWhenEmptyCars()
+        public void BinaryFileReadWhenEmptyCars()
         {
             File.WriteAllBytes(testFilename, new byte[] {
                 0x25, 0x26, //Header
                 0x00, 0x00, 0x00, 0x00 //Count Records               
             });
 
-            ISomeFormat someFormatActions = new BinaryFile();
-            someFormatActions.Read(testFilename);
+            ISomeFormat someFormat = new BinaryFile();
+            someFormat.Read(testFilename);
 
-            Assert.AreEqual(0, someFormatActions.Count());            
+            Assert.AreEqual(0, someFormat.Count());            
         }
 
         [Test]
-        public void XmlFileReadWhenGreatOneCar()
+        public void BinaryFileReadWhenGreatOneCar()
         {
             File.WriteAllBytes(testFilename, new byte[] {
                 0x25, 0x26, //Header
@@ -151,18 +175,18 @@ namespace TestSomeFormat
                 // End two record
             });
 
-            ISomeFormat someFormatActions = new BinaryFile();
-            someFormatActions.Read(testFilename);
+            ISomeFormat someFormat = new BinaryFile();
+            someFormat.Read(testFilename);
 
-            Assert.AreEqual(2, someFormatActions.Count());
+            Assert.AreEqual(2, someFormat.Count());
 
-            ISomeFormatRecord someFormat = someFormatActions.Get(0);
+            ISomeFormatRecord someFormatRecord = someFormat.Get(0);
 
-            Assert.AreEqual("10.10.2008", someFormat.Date);
-            Assert.AreEqual("Alpha Romeo Brera", someFormat.BrandName);
-            Assert.AreEqual(37000, someFormat.Price);
+            Assert.AreEqual("10.10.2008", someFormatRecord.Date);
+            Assert.AreEqual("Alpha Romeo Brera", someFormatRecord.BrandName);
+            Assert.AreEqual(37000, someFormatRecord.Price);
 
-            ISomeFormatRecord someFormat2 = someFormatActions.Get(1);
+            ISomeFormatRecord someFormat2 = someFormat.Get(1);
 
             Assert.AreEqual("16.11.2014", someFormat2.Date);
             Assert.AreEqual("Lamborghini Veneno Roadster", someFormat2.BrandName);
@@ -179,6 +203,35 @@ namespace TestSomeFormat
 
             ISomeFormat someFormatActions = new BinaryFile();
             Assert.That(() => someFormatActions.Read(testFilename), Throws.TypeOf<CorruptedFormatException>());
+        }
+
+
+
+        [Test]
+        public void BinaryFileWrite()
+        {
+            ISomeFormat someFormatBefore = new BinaryFile();
+            ISomeFormatRecord someFormatRecordBefore = new SomeFormatRecordStub() 
+            {
+                Date = "13.12.2016",
+                BrandName = "Test data",
+                Price = 12345678
+            };
+            someFormatBefore.Add(someFormatRecordBefore);
+            someFormatBefore.Write(testFilename);
+
+
+            ISomeFormat someFormatAfter = new BinaryFile();
+            someFormatAfter.Read(testFilename);
+
+            Assert.AreEqual(someFormatBefore.Count(), someFormatAfter.Count());
+
+            ISomeFormatRecord someFormatRecordAfter = someFormatAfter.Get(0);
+
+            Assert.AreEqual(someFormatRecordBefore.Date, someFormatRecordAfter.Date);
+            Assert.AreEqual(someFormatRecordBefore.BrandName, someFormatRecordAfter.BrandName);
+            Assert.AreEqual(someFormatRecordBefore.Price, someFormatRecordAfter.Price);
+
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 
+
 namespace SomeFormat.Implementations.Xml
 {
     public class XmlFile: AbstractSomeFormat
@@ -14,7 +15,8 @@ namespace SomeFormat.Implementations.Xml
         {
             using (XmlWriter xmlWriter = XmlWriter.Create(filename))
             {
-                _xmlSerializer.Serialize(xmlWriter, records);
+                SomeFormatXml someFormatXml = new SomeFormatXml(records);
+                _xmlSerializer.Serialize(xmlWriter, someFormatXml);
             }
         }
 
