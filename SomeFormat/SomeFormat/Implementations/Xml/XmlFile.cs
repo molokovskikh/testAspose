@@ -49,5 +49,12 @@ namespace SomeFormat.Implementations.Xml
             return "SOMEFORMAT.XML";
         }
 
+
+        public override R Convert<R>()
+        {
+            R result = default(R);
+            
+            return result;
+        }
     }
 }

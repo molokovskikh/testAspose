@@ -131,7 +131,7 @@ namespace TestSomeFormat
                 // End two record
             });
 
-            ISomeFormat binaryFormat = new XmlFile();
+            ISomeFormat binaryFormat = new BinaryFile();
             binaryFormat.Read(testBinaryFilename);
 
             ISomeFormat xmlFormat = binaryFormat.Convert<BinaryFile>();
@@ -147,8 +147,7 @@ namespace TestSomeFormat
                 Assert.AreEqual(binaryRecord.BrandName, xmlRecord.BrandName);
                 Assert.AreEqual(binaryRecord.Price, xmlRecord.Price);
             }
-        }
-
-
+        }     
+     
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CommonFormat.Exceptions;
 using System.Text;
 using System;
+using PackingNumber;
 
 
 namespace SomeFormat.Implementations.Binary
@@ -15,6 +16,9 @@ namespace SomeFormat.Implementations.Binary
         static readonly  byte [] HEADER = { 0x25, 0x26 };
 
 
+        /// <summary>
+        /// Mock, just implemention ISomeFormatRecord
+        /// </summary>
         class SomeFormatRecord : ISomeFormatRecord
         {
             public string Date
@@ -37,30 +41,13 @@ namespace SomeFormat.Implementations.Binary
         }
 
 
-        byte [] _PackNumber(long number, int lenInBytes, bool reverse = false)
-        {
-            byte [] res = new byte[lenInBytes];
+      
 
-            if (!reverse)
-            {
-                res[0] = 0;
-                for (int i = 0; i < lenInBytes; i++)
-                {
-
-                }
-            }
-
-            return res;
-        }
-
-
-        long _UnpackNumber(byte [] bytes_number, bool reverse = false)
-        {
-            long res = 0;
-            return res;
-        }
-
-
+        /// <summary>
+        /// Implementation "Write to binary file"
+        /// </summary>
+        /// <param name="filename">filename destination</param>
+        /// <param name="records">records to write</param>
         protected override void WriteTo(string filename, List<ISomeFormatRecord> records)
         {
             using (BinaryWriter b = new BinaryWriter(File.OpenWrite(filename)))
@@ -68,15 +55,32 @@ namespace SomeFormat.Implementations.Binary
                 //Write header
                 b.Write(HEADER);
                 
+                //Write count records
+                b.Write(PackingOfNumberUtils.PackNumber(records.Count, 4, true));
 
-                records.Count
-                b.Write()
+                foreach(ISomeFormatRecord r in records)
+                {
+                    //public fixed byte Date[8];
+                    //public fixed byte BrandNameLen[2];
+                    //public byte [] BrandName;
+                    //public fixed byte Price[4];
+                    
+                    _WriteDate(b, r.Date);
+                    _WriteString(b, r.BrandName);
+                    b.Write(PackingOfNumberUtils.PackNumber(r.Price, 4, true));
+                }
+                
 
             }
         }
 
       
 
+        /// <summary>
+        /// Implementation "Read from binary file"
+        /// </summary>
+        /// <param name="filename">filename source</param>
+        /// <returns>records</returns>
         protected override List<ISomeFormatRecord> ReadFrom(string filename)
         {
             List<ISomeFormatRecord> result = null;
@@ -133,6 +137,9 @@ namespace SomeFormat.Implementations.Binary
         }
 
 
+
+        #region Reading and writing of data, such as date and string from the description format
+
         private string _ReadDate(BinaryReader b)
         {
             StringBuilder strDate = new StringBuilder();              
@@ -146,6 +153,31 @@ namespace SomeFormat.Implementations.Binary
             return strDate.ToString();
         }
 
+
+        private void _WriteDate(BinaryWriter b, string strDate)
+        {
+            byte digit;
+
+            strDate =  strDate.Trim();
+            
+            if(strDate.Length != 10) {
+                throw new CorruptedFormatException();
+            }
+
+            for (int i = 0; i < 10; i++)
+            {                
+                if (i != 2 && i != 5)
+                {                    
+                    
+                    if (byte.TryParse(strDate.Substring(i,1),  out digit))
+                        b.Write(digit);
+                    else
+                        throw new CorruptedFormatException();
+                }
+            }                        
+        }
+
+
         private string _ReadString(BinaryReader b)
         {
             short strLen = b.ReadInt16();
@@ -153,11 +185,26 @@ namespace SomeFormat.Implementations.Binary
             return Encoding.Unicode.GetString(strBytes);
         }
 
-        
+        private void _WriteString(BinaryWriter b, string str)
+        {
+            byte[] bLength = PackingOfNumberUtils.PackNumber(str.Length, 2, true);
+            b.Write(bLength);
+            b.Write(Encoding.Unicode.GetBytes(str));            
+        }
+
+        #endregion
+
 
         protected override string GetTag()
         {
             return "SOMEFORMAT.BINARY";
+        }
+
+        public override R Convert<R>()
+        {
+            R result = default(R);
+
+            return result;
         }
     }
 }

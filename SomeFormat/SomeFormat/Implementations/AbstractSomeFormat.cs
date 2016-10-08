@@ -23,11 +23,7 @@ namespace SomeFormat.Implementations
             return this._records == null;
         }
 
-        /// <summary>
-        /// Get Tag Format
-        /// </summary>
-        /// <returns></returns>
-        protected abstract string GetTag();
+      
 
         #endregion
 
@@ -78,6 +74,15 @@ namespace SomeFormat.Implementations
 
         }
 
+
+        public string Tag
+        {
+            get
+            {
+                return GetTag();
+            }
+        }
+
         #endregion
 
 
@@ -88,22 +93,15 @@ namespace SomeFormat.Implementations
         protected abstract List<ISomeFormatRecord> ReadFrom(string filename);
 
         
-        public R Convert<R>() where R : IFormat<ISomeFormatRecord>
-        {
-            //TODO Release function conversion XML <> Binary
-            //return default(R);
+        public abstract R Convert<R>() where R : IFormat<ISomeFormatRecord>;
 
-            throw new IncompatibleFormatException();
-            
-        }
 
-        public string Tag 
-        { 
-            get 
-            {
-                return GetTag();
-            }
-        }
+        /// <summary>
+        /// Get Tag Format
+        /// </summary>
+        /// <returns></returns>
+        protected abstract string GetTag();
+      
 
         #endregion
 

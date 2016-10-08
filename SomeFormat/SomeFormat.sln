@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TechnicalChallenge", "Techn
 		..\TechnicalChallenge\Library assignment.docx = ..\TechnicalChallenge\Library assignment.docx
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackingNumber", "PackingNumberUtils\PackingNumber.csproj", "{2B7DC133-7B09-4411-948F-ACCC64D14032}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPackingNumber", "TestPackingNumber\TestPackingNumber.csproj", "{F40E904D-B1B0-4D2A-8322-E656986B4FAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +36,14 @@ Global
 		{A764ECDC-EB7E-48A9-91B5-CC131F2C84F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A764ECDC-EB7E-48A9-91B5-CC131F2C84F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A764ECDC-EB7E-48A9-91B5-CC131F2C84F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B7DC133-7B09-4411-948F-ACCC64D14032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B7DC133-7B09-4411-948F-ACCC64D14032}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B7DC133-7B09-4411-948F-ACCC64D14032}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B7DC133-7B09-4411-948F-ACCC64D14032}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F40E904D-B1B0-4D2A-8322-E656986B4FAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F40E904D-B1B0-4D2A-8322-E656986B4FAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F40E904D-B1B0-4D2A-8322-E656986B4FAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F40E904D-B1B0-4D2A-8322-E656986B4FAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
