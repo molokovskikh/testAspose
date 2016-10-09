@@ -134,7 +134,7 @@ namespace TestSomeFormat
             ISomeFormat binaryFormat = new BinaryFile();
             binaryFormat.Read(testBinaryFilename);
 
-            ISomeFormat xmlFormat = binaryFormat.Convert<BinaryFile>();
+            ISomeFormat xmlFormat = binaryFormat.Convert<XmlFile>();
 
             Assert.AreEqual(binaryFormat.Count(), xmlFormat.Count());
 

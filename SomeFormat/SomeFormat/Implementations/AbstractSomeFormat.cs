@@ -10,7 +10,34 @@ namespace SomeFormat.Implementations
     public abstract class AbstractSomeFormat: ISomeFormat
     {
         #region Private code
-       
+
+
+        /// <summary>
+        /// Mock, just implemention ISomeFormatRecord
+        /// </summary>
+        class SomeFormatRecord : ISomeFormatRecord
+        {
+            public string Date
+            {
+                get;
+                set;
+            }
+
+            public string BrandName
+            {
+                get;
+                set;
+            }
+
+            public int Price
+            {
+                get;
+                set;
+            }
+        }
+
+
+
         private List<ISomeFormatRecord> _records;
 
         private void _InitRecords()
@@ -102,6 +129,36 @@ namespace SomeFormat.Implementations
         /// <returns></returns>
         protected abstract string GetTag();
       
+
+
+        /// <summary>
+        /// Create instance implementing ISomeFormatRecord
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="brandName"></param>
+        /// <param name="price"></param>
+        /// <returns></returns>
+        protected ISomeFormatRecord CreateRecord(string date, string brandName, int price)
+        {
+            return new SomeFormatRecord
+            {
+                Date = date,
+                BrandName = brandName,
+                Price = price
+            };
+        }
+
+        /// <summary>
+        /// Clone instance implementing ISomeFormatRecord
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="brandName"></param>
+        /// <param name="price"></param>
+        /// <returns></returns>
+        protected ISomeFormatRecord CloneRecord(ISomeFormatRecord source)
+        {
+            return CreateRecord(source.Date, source.BrandName, source.Price);
+        }
 
         #endregion
 

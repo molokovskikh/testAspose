@@ -15,32 +15,6 @@ namespace SomeFormat.Implementations.Binary
         /// </summary>
         static readonly  byte [] HEADER = { 0x25, 0x26 };
 
-
-        /// <summary>
-        /// Mock, just implemention ISomeFormatRecord
-        /// </summary>
-        class SomeFormatRecord : ISomeFormatRecord
-        {
-            public string Date
-            {
-                get;
-                set;
-            }
-
-            public string BrandName
-            {
-                get;
-                set;
-            }
-
-            public int Price
-            {
-                get;
-                set;
-            }
-        }
-
-
       
 
         /// <summary>
@@ -111,12 +85,11 @@ namespace SomeFormat.Implementations.Binary
                         string brandName = _ReadString(b);
                         int price = b.ReadInt32();
 
-                        ISomeFormatRecord record = new SomeFormatRecord
-                        {
-                            Date = date,
-                            BrandName = brandName,
-                            Price = price
-                        };
+                        ISomeFormatRecord record = CreateRecord(
+                            date,
+                            brandName,
+                            price
+                        );
 
                         result = result ?? new List<ISomeFormatRecord>();
                         result.Add(record);
@@ -202,9 +175,22 @@ namespace SomeFormat.Implementations.Binary
 
         public override R Convert<R>()
         {
-            R result = default(R);
+            R result = (R)Activator.CreateInstance(typeof(R));
 
-            return result;
+            //If is compatible format
+            if ("SOMEFORMAT.XML".Equals(result.Tag))
+            {
+                for (int i = 0; i < Count(); i++)
+                {
+                    ISomeFormatRecord resultRecord = CloneRecord(Get(i));
+                    result.Add(resultRecord);
+                }
+                return result;
+            }
+
+
+            //In all others cases, throw exception
+            throw new IncompatibleFormatException();
         }
     }
 }

@@ -51,10 +51,23 @@ namespace SomeFormat.Implementations.Xml
 
 
         public override R Convert<R>()
-        {
-            R result = default(R);
+        {            
+            R result = (R)Activator.CreateInstance(typeof(R));
             
-            return result;
+            //If is compatible format
+            if("SOMEFORMAT.BINARY".Equals(result.Tag))
+            {
+                for (int i = 0; i < Count(); i++)
+                {
+                    ISomeFormatRecord resultRecord = CloneRecord(Get(i));
+                    result.Add(resultRecord);
+                }
+                return result;
+            }
+
+
+            //In all others cases, throw exception
+            throw new IncompatibleFormatException();
         }
     }
 }
