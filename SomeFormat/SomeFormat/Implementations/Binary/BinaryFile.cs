@@ -1,8 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Text;
 using System.Collections.Generic;
 using CommonFormat.Exceptions;
-using System.Text;
-using System;
 using PackingNumber;
 
 
@@ -94,7 +94,7 @@ namespace SomeFormat.Implementations.Binary
                         result = result ?? new List<ISomeFormatRecord>();
                         result.Add(record);
                     }
-                    catch (Exception e)
+                    catch
                     {
                         throw new CorruptedFormatException();
                     }

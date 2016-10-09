@@ -1,0 +1,95 @@
+<project name="SomeFormat" default="build">
+ 
+<property name="base.path" value="./SomeFormat"/>
+
+<property name="file.solution" value="${base.path}/SomeFormat.sln"/>
+
+<property name="config" value="release" />
+
+<property name="msbuild" value="${framework::get-framework-directory(framework::get-target-framework())}\MSBuild.exe" />
+
+
+<property name="nuget.path" value=".nuget"/>
+<property name="nunit.version" value="3.4.1" />
+
+<target name="build" depends="compile, test"/>
+
+<target name="compile" depends="prepareNUnit">
+		<copy />
+	   <exec program="${msbuild}">
+            <arg value="${file.solution}" />
+            <arg value="/verbosity:detailed" />
+            <arg value="/p:Configuration=${config}" />
+            <arg value="/t:rebuild" />
+        </exec>
+</target>
+
+
+<target name="test" depends="compile" description="Run tests">
+	<call target="testPackingNumber" />
+	<call target="testSomeFormat" />
+</target>
+
+
+<target name="testTestPackingNumber">		
+	
+	  <exec program="${nuget.path}\Packages\NUnit.Runners.${nunit.version}\tools\nunit-console.exe">
+            <arg value="Bin\${config}\TestPackingNumber.dll" />
+            <arg value="/xml:TestPackingNumberResults.xml" />
+            <arg value="/nologo" />
+       </exec>
+
+<!--	   
+	<nunit2>
+		<formatter type="Plain" />
+		<test>
+			<assemblies>
+				<include name="TestPackingNumber\Bin\${config}\TestPackingNumber.dll" />
+			</assemblies>
+			<categories>
+				<include name="Immediate" />
+			</categories>
+		</test>
+	</nunit2>
+-->
+	
+</target>
+
+<target name="testTestSomeFormat">		
+	
+	  <exec program="${nuget.path}\Packages\NUnit.Runners.${nunit.version}\tools\nunit-console.exe">
+            <arg value="Bin\${config}\TestSomeFormat.dll" />
+            <arg value="/xml:TestSomeFormatResults.xml" />
+            <arg value="/nologo" />
+        </exec>
+	
+<!--	 
+	<nunit2>
+		<formatter type="Plain" />
+		<test>
+			<assemblies>
+				<include name="TestSomeFormat\Bin\${config}\TestSomeFormat.dll" />
+			</assemblies>
+			<categories>
+				<include name="Immediate" />
+			</categories>
+		</test>
+	</nunit2>
+-->	
+	
+</target>
+
+
+<target name="prepareNUnit" description="Getting NUnit and all dependencies as for solutuion">
+        <exec program="${nuget.path}\NuGet.exe">
+            <arg value="install" />
+            <arg value="${nuget.path}\packages.config" />
+            <arg value="-OutputDirectory" />
+            <arg value="${nuget.path}\Packages" />
+        </exec>
+		
+</target>
+
+
+
+</project>

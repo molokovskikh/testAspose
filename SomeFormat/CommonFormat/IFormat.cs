@@ -1,6 +1,6 @@
 ﻿using CommonFormat;
 
-namespace SomeFormat
+namespace CommonFormat
 {
     /// <summary>
     /// Actions on file of specific format

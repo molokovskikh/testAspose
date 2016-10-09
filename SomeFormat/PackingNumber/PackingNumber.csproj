@@ -7,8 +7,8 @@
     <ProjectGuid>{2B7DC133-7B09-4411-948F-ACCC64D14032}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PackingNumberUtils</RootNamespace>
-    <AssemblyName>PackingNumberUtils</AssemblyName>
+    <RootNamespace>PackingNumber</RootNamespace>
+    <AssemblyName>PackingNumber</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -29,15 +29,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="PackingOfNumberUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -53,7 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PackingNumberUtils\PackingNumber.csproj">
+    <ProjectReference Include="..\PackingNumber\PackingNumber.csproj">
       <Project>{2b7dc133-7b09-4411-948f-accc64d14032}</Project>
       <Name>PackingNumber</Name>
     </ProjectReference>

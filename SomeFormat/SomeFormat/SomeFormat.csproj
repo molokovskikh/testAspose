@@ -32,10 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -54,7 +50,7 @@
       <Project>{a764ecdc-eb7e-48a9-91b5-cc131f2c84f0}</Project>
       <Name>CommonFormat</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PackingNumberUtils\PackingNumber.csproj">
+    <ProjectReference Include="..\PackingNumber\PackingNumber.csproj">
       <Project>{2b7dc133-7b09-4411-948f-accc64d14032}</Project>
       <Name>PackingNumber</Name>
     </ProjectReference>
