@@ -2,10 +2,34 @@
 
 namespace CommonFormat
 {
+
+    /// <summary>
+    /// Specific format
+    /// </summary>
+    public interface IFormat
+    {
+        /// <summary>
+        /// Convert to any specified format
+        /// </summary>
+        /// <typeparam name="T">Type of target format</typeparam>
+        /// <returns></returns>
+        F Convert<F>() where F : IFormat;
+
+
+        /// <summary>
+        /// Tag implementing format by wildcard "[BusinessDescription].[fileFormatShortName]"
+        /// Expamle: "SOMEFORMAT.XML", "SOMEFORMAT.BIN"
+        /// </summary>
+        string Tag { get; }
+    }
+
+
     /// <summary>
     /// Actions on file of specific format
     /// </summary>
-    public interface IFormat<T> where T:IFormatRecord
+    public interface IFormat<in R, out R2>: IFormat
+        where R:IFormatRecord
+        where R2: IFormatRecord
     {
         /// <summary>
         /// Read data from file
@@ -23,14 +47,14 @@ namespace CommonFormat
         /// Add new record format
         /// </summary>
         /// <param name="record">Position added record</param>
-        long Add(T record);
+        long Add(R record);
 
         /// <summary>
         /// Modify existing record format
         /// </summary>
         /// <param name="record">Existing record</param>
         /// <param name="positionRecord">Position of record</param>
-        void Modify(T record, int positionRecord);
+        void Modify(R record, int positionRecord);
 
 
         /// <summary>
@@ -38,27 +62,22 @@ namespace CommonFormat
         /// </summary>
         /// <param name="positionRecord"></param>
         /// <returns></returns>
-        T Get(int positionRecord);
+        R2 Get(int positionRecord);
 
         /// <summary>
         /// Count of records
         /// </summary>
         /// <returns></returns>
-        long Count();
+        long Count();      
+    }
 
 
-        /// <summary>
-        /// Convert to any specified format
-        /// </summary>
-        /// <typeparam name="T">Type of target format</typeparam>
-        /// <returns></returns>
-         R Convert<R>() where R: IFormat<T>;
-
-
-         /// <summary>
-         /// Tag implementing format by wildcard "[BusinessDescription].[fileFormatShortName]"
-         /// Expamle: "SOMEFORMAT.XML", "SOMEFORMAT.BIN"
-         /// </summary>
-         string Tag { get; }
+    /// <summary>
+    /// Short declare Actions on file of specific format
+    /// </summary>
+    /// <typeparam name="R"></typeparam>
+    public interface IFormat<R> : IFormat<R, R>
+      where R : IFormatRecord
+    {
     }
 }

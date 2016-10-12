@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using CommonFormat.Exceptions;
 using PackingNumber;
+using CommonFormat;
 
 
 namespace SomeFormat.Implementations.Binary
@@ -175,15 +176,17 @@ namespace SomeFormat.Implementations.Binary
 
         public override R Convert<R>()
         {
-            R result = (R)Activator.CreateInstance(typeof(R));
+            R result = (R) Activator.CreateInstance(typeof(R));
 
             //If is compatible format
             if ("SOMEFORMAT.XML".Equals(result.Tag))
             {
+                IFormat<ISomeFormatRecord> resultActions = result as IFormat<ISomeFormatRecord>;
                 for (int i = 0; i < Count(); i++)
                 {
                     ISomeFormatRecord resultRecord = CloneRecord(Get(i));
-                    result.Add(resultRecord);
+                    if (resultActions != null)
+                        resultActions.Add(resultRecord);
                 }
                 return result;
             }

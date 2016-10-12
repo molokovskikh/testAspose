@@ -3,18 +3,19 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using CommonFormat;
 using CommonFormat.Exceptions;
+using System.Collections.Generic;
 
 namespace ExampleOtherFormat
 {
-    public class OtherFormat: IFormat<OtherFormatRecord>
+    [Serializable]
+    public class OtherFormat: IFormat
     {
-        private readonly BinaryFormatter formatter = new BinaryFormatter();
-
+        
         public void Read(string filename)
         {
             using(FileStream b = File.OpenRead(filename))
             {
-               // this.Records = formatter.Deserialize(b);
+               
             }
         }
 
@@ -22,21 +23,21 @@ namespace ExampleOtherFormat
         {
             using (FileStream b = File.OpenWrite(filename))
             {
-                //formatter.Serialize(b,this.Records);
+             
             }
         }
 
-        public long Add(OtherFormatRecord record)
+        public long Add(IFormatRecord record)
         {
             throw new NotImplementedException();
         }
 
-        public void Modify(OtherFormatRecord record, int positionRecord)
+        public void Modify(IFormatRecord record, int positionRecord)
         {
             throw new NotImplementedException();
         }
 
-        public OtherFormatRecord Get(int positionRecord)
+        public IFormatRecord Get(int positionRecord)
         {
             throw new NotImplementedException();
         }
@@ -46,16 +47,32 @@ namespace ExampleOtherFormat
             throw new NotImplementedException();
         }
 
-        public R Convert<R>() where R : IFormat<OtherFormatRecord>
+
+        public R Convert<R>() where R : IFormat
         {
-            R result = default(R);
-            
-            return result;
+            R result = (R)Activator.CreateInstance(typeof(R));
+
+            //If is compatible format
+            if ("SOMEFORMAT.XML".Equals(result.Tag))
+            {
+                for (int i = 0; i < Count(); i++)
+                {
+
+                }
+                return result;
+            }
+
+
+            //In all others cases, throw exception
+            throw new IncompatibleFormatException();
         }
 
         public string Tag
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return "OTHERFORMAT.BIN";
+            }
         }
     }
 }

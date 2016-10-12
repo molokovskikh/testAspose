@@ -1,4 +1,5 @@
-﻿using CommonFormat.Exceptions;
+﻿using CommonFormat;
+using CommonFormat.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Xml;
@@ -57,10 +58,13 @@ namespace SomeFormat.Implementations.Xml
             //If is compatible format
             if("SOMEFORMAT.BINARY".Equals(result.Tag))
             {
+                IFormat<ISomeFormatRecord> resultActions = result as IFormat<ISomeFormatRecord>;
+                
                 for (int i = 0; i < Count(); i++)
                 {
                     ISomeFormatRecord resultRecord = CloneRecord(Get(i));
-                    result.Add(resultRecord);
+                    if(resultActions != null)
+                        resultActions.Add(resultRecord);
                 }
                 return result;
             }

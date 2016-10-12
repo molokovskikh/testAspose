@@ -116,7 +116,7 @@ namespace SomeFormat.Implementations
         protected abstract List<ISomeFormatRecord> ReadFrom(string filename);
 
         
-        public abstract R Convert<R>() where R : IFormat<ISomeFormatRecord>;
+        public abstract R Convert<R>() where R : IFormat;
 
 
         /// <summary>
@@ -158,7 +158,5 @@ namespace SomeFormat.Implementations
 
         #endregion
 
-       
-        
     }
 }
