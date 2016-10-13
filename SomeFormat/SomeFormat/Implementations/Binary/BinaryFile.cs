@@ -180,15 +180,18 @@ namespace SomeFormat.Implementations.Binary
 
             //If is compatible format
             if ("SOMEFORMAT.XML".Equals(result.Tag))
-            {
+            {               
                 IFormat<ISomeFormatRecord> resultActions = result as IFormat<ISomeFormatRecord>;
-                for (int i = 0; i < Count(); i++)
+                if (resultActions != null)
                 {
-                    ISomeFormatRecord resultRecord = CloneRecord(Get(i));
-                    if (resultActions != null)
-                        resultActions.Add(resultRecord);
+                    for (int i = 0; i < Count(); i++)
+                    {
+                        ISomeFormatRecord resultRecord = CloneRecord(Get(i));
+                        if (resultActions != null)
+                            resultActions.Add(resultRecord);
+                    }
+                    return result;
                 }
-                return result;
             }
 
 

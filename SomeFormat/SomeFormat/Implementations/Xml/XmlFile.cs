@@ -59,14 +59,15 @@ namespace SomeFormat.Implementations.Xml
             if("SOMEFORMAT.BINARY".Equals(result.Tag))
             {
                 IFormat<ISomeFormatRecord> resultActions = result as IFormat<ISomeFormatRecord>;
-                
-                for (int i = 0; i < Count(); i++)
+                if (resultActions != null)
                 {
-                    ISomeFormatRecord resultRecord = CloneRecord(Get(i));
-                    if(resultActions != null)
+                    for (int i = 0; i < Count(); i++)
+                    {
+                        ISomeFormatRecord resultRecord = CloneRecord(Get(i));
                         resultActions.Add(resultRecord);
+                    }
+                    return result;
                 }
-                return result;
             }
 
 
