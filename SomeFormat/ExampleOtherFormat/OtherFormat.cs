@@ -47,27 +47,7 @@ namespace ExampleOtherFormat
                 }
             }            
         }
-
-        public long Add(IFormatRecord record)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Modify(IFormatRecord record, int positionRecord)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IFormatRecord Get(int positionRecord)
-        {
-            throw new NotImplementedException();
-        }
-
-        public long Count()
-        {
-            throw new NotImplementedException();
-        }
-
+      
 
         public R Convert<R>() where R : IFormat
         {

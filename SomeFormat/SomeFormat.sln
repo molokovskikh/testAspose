@@ -10,7 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonFormat", "CommonFormat\CommonFormat.csproj", "{A764ECDC-EB7E-48A9-91B5-CC131F2C84F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TechnicalChallenge", "TechnicalChallenge", "{0D7870B9-E4E0-4336-9844-BC2C6D22AC41}"
-	ProjectSection(SolutionItems) = preProject
+	ProjectSection(SolutionItems) = preProject		 
+		..\TechnicalChallenge\DescriptionSolution.txt = ..\TechnicalChallenge\DescriptionSolution.txt
 		..\TechnicalChallenge\Library assignment.docx = ..\TechnicalChallenge\Library assignment.docx
 	EndProjectSection
 EndProject

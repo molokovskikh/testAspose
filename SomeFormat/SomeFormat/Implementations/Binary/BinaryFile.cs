@@ -177,18 +177,18 @@ namespace SomeFormat.Implementations.Binary
         public override R Convert<R>()
         {
             R result = (R) Activator.CreateInstance(typeof(R));
-
+          
             //If is compatible format
             if ("SOMEFORMAT.XML".Equals(result.Tag))
-            {               
+            {
                 IFormat<ISomeFormatRecord> resultActions = result as IFormat<ISomeFormatRecord>;
                 if (resultActions != null)
                 {
                     for (int i = 0; i < Count(); i++)
                     {
                         ISomeFormatRecord resultRecord = CloneRecord(Get(i));
-                        if (resultActions != null)
-                            resultActions.Add(resultRecord);
+
+                        resultActions.Add(resultRecord);
                     }
                     return result;
                 }
