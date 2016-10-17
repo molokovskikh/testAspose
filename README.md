@@ -1,0 +1,38 @@
+# testAspose
+On the base of challenge, a row of the requirements described in the form of the abstract entities was selected. 
+(All made solutions followed from implementation of tests, as tests were written before architecture and before introduction of interfaces and their implementation)
+
+1) The file format can be any and shall support actions: reading from the file and writing to file, and also conversion to other format. The IFormat interface introduced is for this purpose.
+
+2) The file of any format consists is a record set, with each record such file, can be performed operations: adding, deleting, getting on an index e.t.c. 
+These actions it is expressed in IFormatRecord abstraction.
+
+3) The file formats described in the task have identical structure of record. 
+Therefore for them selected the common abstraction in the form of two ISomeFormat and ISomeFormatRecord interfaces which are inherited from IFormat and IFormatRecord, respectively.
+
+
+The solution is partitioned into several modules:
+
+The top level of API (IFormat, IFormatRecord) is carried out in the CommonFormat module 
+(that will allow to reuse this interface in case of implementation of other file formats, in the future if such need arises, and supports of their convertibility in existing).
+
+The API level of an existing task is in the SomeFormat module. It includes ISomeFormat and ISomeFormatRecord. 
+And also their implementations for two formats: BinaryFormat and XmlFormat .
+
+In case of BinaryFormat implementation, in structure of record the auxiliary functionality of packaging/unpacking of integral numbers in an array of bytes and back was required. 
+The functionality is realized in the form of the PackingOfNumber module. 
+The functionality in itself is simple, but the level of the tolerance of an error in it is big therefore it is covered with the appropriate test case.
+
+This solution will allow to expand a functionality, without changes to the existing code. 
+So to say the file of a format can be any type (and it isn't require with a record set), 
+it present in the ExampleOtherFormat module which realizes reading and writing a CSV file (with a separator ";"), 
+and also its subsequent conversion to the ISomeFormat format. 
+Minuses of this approach are that in implementation of the Convert method of interface IFormat, 
+it is necessary to use explicit cast of types for operation with IFormat and IFormatRecord interfaces successors, but it is a board for weak link between objects. 
+In general It should be noted that ISomeFormat and ISomeFormatRecord interfaces in relation to the ExampleOtherFormat module should be placed in the separate module,
+with the name SomeFormatApi (for more pure dependence between modules).
+
+In project created file for build NAnt. It have name "testAspose.build".
+Its work include two steps:
+1) Upload package manager Nuget and update dependencies NUnit for test projects.
+2) Build solution and run test cases.
